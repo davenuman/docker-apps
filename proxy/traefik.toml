@@ -1,0 +1,47 @@
+
+logLevel = "DEBUG"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "TODO"
+watch = true
+exposedbydefault = true
+
+[acme]
+email = "TODO@example.com"
+storage = "acme.json"
+entryPoint = "https"
+  [acme.dnsChallenge]
+  provider = "cloudflare"
+
+[[acme.domains]]
+  main = "TODO.com"
+
+[[acme.domains]]
+  main = "cloud.TODO.com"
+
+[[acme.domains]]
+  main = "*.TODO.com"
+
+# API definition
+[api]
+entryPoint = "traefik"
+dashboard = true
+# Enable debug mode.
+# This will install HTTP handlers to expose Go expvars under /debug/vars and
+# pprof profiling data under /debug/pprof.
+# Additionally, the log level will be set to DEBUG.
+# Optional
+# Default: false
+debug = true
+

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  proxy:
+    image: traefik:1.7-alpine
+    container_name: proxy
+    restart: always
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ./acme.json:/acme.json
+    env_file: env.docker
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    network_mode: bridge
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
